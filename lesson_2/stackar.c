@@ -57,13 +57,13 @@ int IsEmpty( Stack S )
 
 int IsFull( Stack S )
 {
-	S->TopOfStack == S->Capacity - 1;
+	return S->TopOfStack == S->Capacity - 1;
 }
 
 
 void MakeEmpty( Stack S )
 {
-	S->TopOfStack == EmptyTOS;
+	S->TopOfStack = EmptyTOS;
 }
 
 
