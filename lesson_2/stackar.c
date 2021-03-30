@@ -1,6 +1,8 @@
 #include "stackar.h"
 #include "fatal.h"
+#include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 #define EmptyTOS -1
@@ -49,13 +51,13 @@ void DisposeStack( Stack S )
 }
 
 
-int IsEmpty( Stack S )
+bool IsEmpty( Stack S )
 {
 	return S->TopOfStack == EmptyTOS;
 }
 
 
-int IsFull( Stack S )
+bool IsFull( Stack S )
 {
 	return S->TopOfStack == S->Capacity - 1;
 }
@@ -94,4 +96,47 @@ ElementType Pop( Stack S )
 		return 0;
 	}
 	return S->Array[S->TopOfStack--];
+}
+
+void PrintStack(Stack S)
+{
+	printf("\n# Top of the Stack #\n");
+	
+	for(int i=0 ; i<=S->TopOfStack ; i++)
+		printf("%d\n", S->Array[i]);
+
+	printf("# End Of Stack #\n\n");
+}
+
+bool ParentesisMatch(char *s)
+{	
+	int lBracket = 0, rBracket = 0, lParentheses = 0, rParentheses = 0, lBraces = 0, rBraces = 0, i = 0;
+	
+	while(s[i] != '\0')
+	{
+		switch(s[i]) 
+		{
+		case '[' :
+			lBracket++;
+			break;
+		case ']' :
+			rBracket++;
+			break;
+		case '(' :
+			lParentheses++;
+			break;
+		case ')' :
+			rParentheses++;
+			break;
+		case '{' :
+			lBraces++;
+			break;
+		case '}' :
+			rBraces++;
+			break;
+		}
+		i++;
+	}
+	// printf("Brackets: %d %d\nParentheses: %d %d\nBraces: %d %d\n", lBracket, rBracket, lParentheses, rParentheses, lBraces, rBraces);
+	return lBracket == rBracket && lParentheses == rParentheses && lBraces == rBraces;
 }
